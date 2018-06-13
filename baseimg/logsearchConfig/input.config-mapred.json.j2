@@ -1,0 +1,32 @@
+
+{
+  "input":[
+    {
+      "type":"mapred_historyserver",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-mapreduce/mapred/mapred-mapred-historyserver*.log"
+    }
+   ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "mapred_historyserver"
+          ]
+         }
+       },
+      "log4j_format":"%d{ISO8601} %-5p %c{2} (%F:%M(%L)) - %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}%{JAVACLASS:logger_name}%{SPACE}\\(%{JAVAFILE:file}:%{JAVAMETHOD:method}\\(%{INT:line_number}\\)\\)%{SPACE}-%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     }
+   ]
+ }

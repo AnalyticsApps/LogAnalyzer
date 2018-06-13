@@ -1,0 +1,50 @@
+
+{
+   "input":[
+      {
+       "type":"spark_jobhistory_server",
+       "rowtype":"service",
+       "path":"/opt/LogSearchExt/logs/var/log/spark/spark-*-org.apache.spark.deploy.history.HistoryServer*.out"
+     },
+     {
+       "type":"spark_thriftserver",
+       "rowtype":"service",
+       "path":"/opt/LogSearchExt/logs/var/log/spark/spark-*-org.apache.spark.sql.hive.thriftserver.HiveThriftServer2*.out"
+     },
+     {
+       "type":"livy_server",
+       "rowtype":"service",
+       "path":"/opt/LogSearchExt/logs/var/log/livy/livy-livy-server.out"
+     }
+   ],
+   "filter":[
+       {
+          "filter":"grok",
+          "conditions":{
+            "fields":{
+              "type":[
+                "spark_jobhistory_server",
+                "spark_thriftserver",
+                "livy_server"
+              ]
+             }
+          },
+          "log4j_format":"",
+          "multiline_pattern":"^(%{SPARK_DATESTAMP:logtime}%{SPACE}%{LOGLEVEL:level})",
+          "message_pattern":"(?m)^%{SPARK_DATESTAMP:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}%{JAVAFILE:file}:%{SPACE}%{GREEDYDATA:log_message}",
+          "post_map_values":{
+            "logtime":{
+              "map_date":{
+                "target_date_pattern":"yy/MM/dd HH:mm:ss"
+              }
+             },
+            "level":{
+              "map_fieldvalue":{
+                "pre_value":"WARNING",
+                "post_value":"WARN"
+              }
+             }
+           }
+      }
+   ]
+}

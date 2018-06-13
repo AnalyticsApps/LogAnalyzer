@@ -1,0 +1,56 @@
+
+{
+  "input":[
+    {
+      "type":"yarn_nodemanager",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-yarn/yarn/yarn-yarn-nodemanager-*.log"
+    },
+    {
+      "type":"yarn_resourcemanager",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-yarn/yarn/yarn-yarn-resourcemanager-*.log"
+    },
+    {
+      "type":"yarn_timelineserver",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-yarn/yarn/yarn-yarn-timelineserver-*.log"
+    },
+    {
+      "type":"yarn_historyserver",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-yarn/yarn/yarn-yarn-historyserver-*.log"
+    },
+    {
+      "type":"yarn_jobsummary",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hadoop-yarn/yarn/hadoop-mapreduce.jobsummary.log"
+    }
+   ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "yarn_historyserver",
+            "yarn_jobsummary",
+            "yarn_nodemanager",
+            "yarn_resourcemanager",
+            "yarn_timelineserver"
+          ]
+         }
+       },
+      "log4j_format":"%d{ISO8601} %-5p %c{2} (%F:%M(%L)) - %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}%{JAVACLASS:logger_name}%{SPACE}\\(%{JAVAFILE:file}:%{JAVAMETHOD:method}\\(%{INT:line_number}\\)\\)%{SPACE}-%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     }
+   ]
+}

@@ -1,0 +1,76 @@
+
+{
+  "input":[
+    {
+      "type":"kafka_controller",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/kafka/controller.log"
+    },
+    {
+      "type":"kafka_request",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/kafka/kafka-request.log"
+    },
+    {
+      "type":"kafka_logcleaner",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/kafka/log-cleaner.log"
+    },
+    {
+      "type":"kafka_server",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/kafka/server.log"
+    },
+    {
+      "type":"kafka_statechange",
+      "rowtype":"service",
+      "path":"/state-change.log"
+    }
+   ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "kafka_controller",
+            "kafka_request",
+            "kafka_logcleaner"
+          ]
+         }
+       },
+      "log4j_format":"[%d] %p %m (%c)%n",
+      "multiline_pattern":"^(\\[%{TIMESTAMP_ISO8601:logtime}\\])",
+      "message_pattern":"(?m)^\\[%{TIMESTAMP_ISO8601:logtime}\\]%{SPACE}%{LOGLEVEL:level}%{SPACE}\\[%{DATA:thread_name}\\]%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     },
+    {
+      "filter":"grok",
+      "comment":"Suppose to be same log4j pattern as other kafka processes, but some reason thread is not printed",
+      "conditions":{
+        "fields":{
+          "type":[
+            "kafka_server",
+            "kafka_statechange"
+          ]
+         }
+       },
+      "log4j_format":"[%d] %p %m (%c)%n",
+      "multiline_pattern":"^(\\[%{TIMESTAMP_ISO8601:logtime}\\])",
+      "message_pattern":"(?m)^\\[%{TIMESTAMP_ISO8601:logtime}\\]%{SPACE}%{LOGLEVEL:level}%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     }
+   ]
+ }

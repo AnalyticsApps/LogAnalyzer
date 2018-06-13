@@ -1,0 +1,45 @@
+
+{
+  "input":[
+    {
+      "type":"knox_gateway",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/knox/gateway.log"
+    },
+    {
+      "type":"knox_cli",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/knox/knoxcli.log"
+    },
+    {
+      "type":"knox_ldap",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/knox/ldap.log"
+    }
+   ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "knox_gateway",
+            "knox_cli",
+            "knox_ldap"
+          ]
+
+        }
+       },
+      "log4j_format":"%d{ISO8601} %-5p %c{2} (%F:%M(%L)) - %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}%{JAVACLASS:logger_name}%{SPACE}\\(%{JAVAFILE:file}:%{JAVAMETHOD:method}\\(%{INT:line_number}\\)\\)%{SPACE}-%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     }
+   ]
+ }

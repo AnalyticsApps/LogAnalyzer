@@ -1,0 +1,38 @@
+{
+  "input":[
+    {
+      "type":"logsearch_app",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/ambari-logsearch-portal/logsearch.json"
+    },
+    {
+      "type":"logsearch_feeder",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/ambari-logsearch-logfeeder/logsearch-logfeeder.json"
+    },
+    {
+      "type":"logsearch_perf",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/ambari-logsearch-portal/logsearch-performance.json"
+    }
+  ],
+  "filter":[
+    {
+      "filter":"json",
+      "conditions":{
+        "fields":{
+          "type":[
+            "logsearch_app",
+            "logsearch_feeder",
+            "logsearch_perf"
+          ]
+
+        }
+
+      }
+
+    }
+
+  ]
+
+}

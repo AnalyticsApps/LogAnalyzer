@@ -1,0 +1,69 @@
+
+{
+  "input":[
+    {
+      "type":"hive_hiveserver2",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hive/hiveserver2.log"
+    },
+    {
+      "type":"hive_metastore",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/hive/hivemetastore.log"
+    },
+    {
+      "type": "webhcat_server",
+      "rowntype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/webhcat/webhcat.log"
+    }
+  ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "hive_hiveserver2",
+            "hive_metastore"
+          ]
+         }
+       },
+      "log4j_format":"%d{ISO8601} %-5p [%t]: %c{2} (%F:%M(%L)) - %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}\\[%{DATA:thread_name}\\]:%{SPACE}%{JAVACLASS:logger_name}%{SPACE}\\(%{JAVAFILE:file}:%{JAVAMETHOD:method}\\(%{INT:line_number}\\)\\)%{SPACE}-%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     },
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "webhcat_server"
+          ]
+         }
+       },
+      "log4j_format":" %-5p | %d{DATE} | %c | %m%n",
+      "multiline_pattern":"^(%{SPACE}%{LOGLEVEL:level}%{CUSTOM_SEPARATOR}%{CUSTOM_DATESTAMP:logtime})",
+      "message_pattern":"(?m)^%{SPACE}%{LOGLEVEL:level}%{CUSTOM_SEPARATOR}%{CUSTOM_DATESTAMP:logtime}%{CUSTOM_SEPARATOR}%{JAVACLASS:file}%{CUSTOM_SEPARATOR}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"dd MMM yyyy HH:mm:ss,SSS"
+          }
+         },
+        "level":{
+           "map_fieldvalue":{
+             "pre_value":"WARNING",
+             "post_value":"WARN"
+            }
+        }
+       }
+     }
+   ]
+ }

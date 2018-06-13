@@ -1,0 +1,76 @@
+
+{
+  "input":[
+    {
+      "type":"accumulo_gc",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/accumulo/gc_*.log"
+    },
+    {
+      "type":"accumulo_master",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/accumulo/master_*.log"
+    },
+    {
+      "type":"accumulo_monitor",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/accumulo/monitor_*.log"
+    },
+    {
+      "type":"accumulo_tracer",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/accumulo/tracer_*.log"
+    },
+    {
+      "type":"accumulo_tserver",
+      "rowtype":"service",
+      "path":"/opt/LogSearchExt/logs/var/log/accumulo/tserver_*.log"
+    }
+   ],
+  "filter":[
+    {
+      "filter":"grok",
+      "conditions":{
+        "fields":{
+          "type":[
+            "accumulo_master"
+          ]
+         }
+       },
+      "log4j_format":"%d{ISO8601} [%-8c{2}] %-5p: %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}\\[%{JAVACLASS:logger_name}\\]%{SPACE}%{LOGLEVEL:level}:%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+         }
+       }
+     },
+    {
+      "filter":"grok",
+      "comment":"This one has one extra space after LEVEL",
+      "conditions":{
+        "fields":{
+          "type":[
+            "accumulo_gc",
+            "accumulo_monitor",
+            "accumulo_tracer",
+            "accumulo_tserver"
+          ]
+         }
+       },
+      "log4j_format":"%d{ISO8601} [%-8c{2}] %-5p: %X{application} %m%n",
+      "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+      "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}\\[%{JAVACLASS:logger_name}\\]%{SPACE}%{LOGLEVEL:level}%{SPACE}:%{SPACE}%{GREEDYDATA:log_message}",
+      "post_map_values":{
+        "logtime":{
+          "map_date":{
+            "target_date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+          }
+        }
+       }
+     }
+   ]
+ }
