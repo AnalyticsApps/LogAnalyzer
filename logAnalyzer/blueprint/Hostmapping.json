@@ -1,0 +1,10 @@
+    {
+      "blueprint" : "LogSearchBlueprint",
+      "default_password" : "passw0rd",
+      "host_groups" :[
+ADD_SERVER
+ADD_AGENTS
+      ]
+    }
+
+
