@@ -1,0 +1,26 @@
+    {
+      "blueprint" : "LogSearchBlueprint",
+      "default_password" : "passw0rd",
+      "host_groups" :[
+	{
+		"name" : "host_server",
+		"hosts" : [
+			{
+				"fqdn" : "bicluster421.fyre.ibm.com"
+			}
+		]
+	}
+
+	,{
+		"name" : "host_agents",
+		"hosts" : [
+			{
+				"fqdn" : "bicluster422.fyre.ibm.com"
+			}
+		]
+	}
+
+      ]
+    }
+
+
