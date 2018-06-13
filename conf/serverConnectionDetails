@@ -1,0 +1,14 @@
+
+
+
+ ********************************************************
+
+ To login to Ambari UI -> localhost:8080
+ Credentials for Ambari UI -> admin/passw0rd
+ To login to LogSearch UI -> localhost:61888
+ Credentials for LogSearch UI -> admin/passw0rd
+
+ To Login to Ambari Server Linux terminal -> ssh -p 21 root@localhost
+ Password for root user -> passw0rd
+
+ ********************************************************
