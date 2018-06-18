@@ -43,7 +43,7 @@ The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonwork
 
 **bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
 
-***bin/setupCluster.sh***
+*bin/setupCluster.sh*
 
 ![](img/SetupCluster_CreateCluster1.png)
 ![](img/SetupCluster_CreateCluster2.png)
