@@ -26,7 +26,7 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 ![](img/logCollector_2.png)
  
  
-**2) bin/setupDocker.sh**  - Used to setup the Docker in a Fresh Linux Machine.
+**2) bin/setupDocker.sh**  - Used to setup the Docker in a fresh Linux Machine.
 
 ![](img/setupDocker.png)
  
@@ -34,7 +34,8 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 **3) bin/setup.sh** - Used to setup the Cluster based on Customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
 
 The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
-
+ 
+ 
 ![](img/setup_1.png)
 ![](img/setup_2.png)
 ![](img/setup_3.png)
@@ -43,32 +44,46 @@ The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonwork
 ![](img/setup_result_2.png)
 ![](img/setup_result_3.png)
 ![](img/setup_result_4.png)
-
-**bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
-
+ 
+ 
+**4) bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
+ 
+ 
 ![](img/SetupCluster_CreateCluster0.png)
-
+ 
+ 
 *bin/setupCluster.sh createLogAnalyzer*
-
+  
+  
 ![](img/SetupCluster_CreateCluster1.png)
 ![](img/SetupCluster_CreateCluster2.png)
-
+  
+  
 *bin/setupCluster.sh stop*
-
+  
+  
 ![](img/SetupCluster_Stop.png)
-
+  
+  
 *bin/setupCluster.sh start*
-
+  
+  
 ![](img/SetupCluster_Start.png)
-
-**bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the Support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
-
+  
+  
+**5) bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the Support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
+ 
+ 
 ![](img/LogDistribute.png)
-
-**bin/kill_all.sh** - Used to kill the containers running.
-
+  
+  
+**6) bin/kill_all.sh** - Used to kill the containers running.
+  
+  
 ![](img/Kill_All.png)
-
+  
+  
+  
 ## Author
 
 **Nisanth Simon** - [NisanthSimon@LinkedIn]
