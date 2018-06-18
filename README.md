@@ -34,14 +34,14 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 **3) bin/setup.sh** - Used to setup the cluster based on customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
 
 The path for Ambari repo is available in Hortonworks URL (https://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
- 
- 
+  
+  
 ![](img/setup_1.png)
 ![](img/setup_2.png)
 ![](img/setup_3.png)
-     
- <br>  
- <br>
+  
+  
+  
 ![](img/setup_result_1.png)
 ![](img/setup_result_2.png)
 ![](img/setup_result_3.png)
