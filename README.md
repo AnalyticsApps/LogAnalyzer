@@ -19,20 +19,27 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 
 ### Usage
 
-**logCollector.sh** - Used by Customer to collect the logs. Customer need to provide the Case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
+**bin/logCollector.sh** - Used by Customer to collect the logs. Customer need to provide the Case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
  
 ![](img/logCollector_1.png)
 ![](img/logCollector_2.png)
 
-setupDocker.sh  - Used to setup the Docker in a Linux Machine
+**bin/setupDocker.sh**  - Used to setup the Docker in a Fresh Linux Machine.
 
-setup.sh - Used to setup the Cluster based on Customer hostname and distribute the customer logs for analysis.
+**bin/setup.sh** - Used to setup the Cluster based on Customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
 
-setupCluster.sh - Used for setup the cluster based on the nodes mentioned in configuration files
+The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
 
-logDistribute.sh - Used for distributing the customer logs to existing cluster
+![](img/setup_1.png)
+![](img/setup_2.png)
+![](img/setup_3.png)
 
-kill_all.sh - Used to kill the containers running.
+
+**bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files
+
+**bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster
+
+**bin/kill_all.sh** - Used to kill the containers running.
 
 
 
