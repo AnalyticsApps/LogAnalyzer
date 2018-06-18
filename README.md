@@ -72,8 +72,8 @@ The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonwork
   
   
 **5) bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the Support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
- 
- 
+ <br>
+ <br>
 ![](img/LogDistribute.png)
   
   
