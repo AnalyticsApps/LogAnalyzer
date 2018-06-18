@@ -40,7 +40,7 @@ The path for Ambari repo is available in Hortonworks URL (https://docs.hortonwor
 ![](img/setup_2.png)
 ![](img/setup_3.png)
   
-*Log Search UI for log analysis    
+*Log Search UI for log analysis*    
   
 ![](img/setup_result_1.png)
 ![](img/setup_result_2.png)
@@ -48,7 +48,7 @@ The path for Ambari repo is available in Hortonworks URL (https://docs.hortonwor
 ![](img/setup_result_4.png)
  
  
-**4) bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
+**4) bin/setupCluster.sh** - Used for setup the container/cluster based on the nodes mentioned in configuration files. The Amabri server will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually install other components from Ambari UI.
  
  
 ![](img/SetupCluster_CreateCluster0.png)
@@ -73,7 +73,7 @@ The path for Ambari repo is available in Hortonworks URL (https://docs.hortonwor
 ![](img/SetupCluster_Start.png)
   
   
-**5) bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the Support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
+**5) bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
   
   
 ![](img/LogDistribute.png)
