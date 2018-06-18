@@ -17,8 +17,9 @@ The <assignedPort> and login details for each containers are updated in conf/ser
 
 After analysing the logs, Support Engineer will run bin/kill_all.sh that will kill/remove these containers.
 
+### Usage
 
-logCollector.sh - Used by Customer to collect the logs. Customer need to provide the Case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
+** logCollector.sh ** - Used by Customer to collect the logs. Customer need to provide the Case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
  
 ![](img/logCollector_1.png)
 ![](img/logCollector_2.png)
