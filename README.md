@@ -1,18 +1,18 @@
 # LogAnalyzer
-Log Analyzer for analysing the customer logs for bigdata components like HDFS, Hive, HBase, Yarn, MapReduce, Storm, Spark, Spark 2, Knox, Ambari Metrics, Nifi, Accumulo, Kafka, Flume, Oozie, Falcon, Atlas & Zookeeper.
+Log Analyzer -  Analyses the customer logs for bigdata components like HDFS, Hive, HBase, Yarn, MapReduce, Storm, Spark, Spark 2, Knox, Ambari Metrics, Nifi, Accumulo, Kafka, Flume, Oozie, Falcon, Atlas & Zookeeper.
 
 ## Internal Architecture
 
-Analysing the Customer logs for understanding the issue is a time consuming process. For a BigData issue, the Support Engineer need to slice and dice the logs from various components across different nodes to understand the issue. There are many paid products available that helps in analysing these logs. Here we use the the Ambari Log Search Feature to analyse the logs. The Amabri Log Search is used to analyse the logs in that cluster and it expects all the components to be installed so that it will check the issues of the installed components in that cluster. This project creates the docker containers based on the nodes provided by Customer and setup the Amabri Log Search in it and Ambari Log Search will be using the customer logs.
+Analysing the Customer logs for understanding the issue is a time consuming process. For a bigdata issue, the support engineer need to slice and dice the logs from various components across different nodes to understand the issue. There are many paid products available that helps in analysing these logs. Here we use the the Ambari Log Search Feature to analyse the logs. The Amabri Log Search is used to analyse the logs in that cluster and it expects all the components to be installed so that it will check the issues of the installed components in that cluster. This project creates the docker containers based on the nodes provided by Customer and setup the Amabri Log Search in it and Ambari Log Search will be using the customer logs.
 
-Consider a customer has a 20 node Hadoop Cluster and having issues with namenode(node1.test.com) and 2 datanode (node12.test.com, node15.test.com). The Support Engineer has to share the Log Collector Script (bin/logCollector.sh) to Customer. Customer run the script that will collect the logs from 3 nodes (node1.test.com, node12.test.com, node15.test.com). The customer shares the zipped artifact to support engineer. 
+Consider a customer has a 20 node hadoop cluster and having issues with namenode(node1.test.com) and 2 datanode (node12.test.com, node15.test.com). The support engineer has to share the log collector script (bin/logCollector.sh) to customer. Customer run the script that will collect the logs from 3 nodes (node1.test.com, node12.test.com, node15.test.com). The customer shares the zipped artifact to support engineer. 
 
-The Support Engineer run the bin/setup.sh and share the path for the collected artifact. This script will create 3 docker containers for each node (node1.test.com, node12.test.com, node15.test.com). The container name will be same as host name. Here the script take the first container (node1.test.com) and setup the ambari server. Ambari agents will be installed in rest all the container. Then the script creates the Ambari Blueprints and install the Log Search. Only dependent components for Log Search will be installed in the cluster. After the installation, the script will update the Log Search to point to customer logs. This script takes 10-15 mins to setup the Log Analyzer. 
+The support engineer run the bin/setup.sh and share the path for the collected artifact. This script will create 3 docker containers for each node (node1.test.com, node12.test.com, node15.test.com). The container name will be same as host name. Here the script take the first container (node1.test.com) and setup the ambari server. Ambari agents will be installed in rest all the container. Then the script creates the ambari blueprints and install the Log Search. Only dependent components for Log Search will be installed in the cluster. After the installation, the script will update the Log Search to point to customer logs. This script takes 10-15 mins to setup the Log Analyzer. 
 
-The Support Engineer uses he URL http://<HostIP>:61888/login.html to analyze the logs. The credentials are admin/passw0rd
-The Support Engineer can login to Amabri Server (http://<HostIP>:8080/) using credentials admin/passw0rd
-The Support Engineer can login to these containers or Ambari nodes from linux terminal using ssh -p <assignedPort> root@localhost
-The <assignedPort> and login details for each containers are updated in conf/serverConnectionDetails & conf/agentConnectionDetails
+The Support Engineer uses he URL http://HostIP:61888/login.html to analyze the logs. The credentials are admin/passw0rd
+The Support Engineer can login to Amabri Server (http://HostIP:8080/) using credentials admin/passw0rd
+The Support Engineer can login to these containers or Ambari nodes from linux terminal using ssh -p assignedPort root@localhost
+The assignedPort and login details for each containers are updated in conf/serverConnectionDetails & conf/agentConnectionDetails
 
 
 After analysing the logs, Support Engineer will run bin/kill_all.sh that will kill/remove these containers.
@@ -43,17 +43,35 @@ The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonwork
 
 **bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
 
-*bin/setupCluster.sh*
+![](img/SetupCluster_CreateCluster0.png)
+
+*bin/setupCluster.sh createLogAnalyzer*
 
 ![](img/SetupCluster_CreateCluster1.png)
 ![](img/SetupCluster_CreateCluster2.png)
 
-**bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster
+*bin/setupCluster.sh stop*
+
+![](img/SetupCluster_Stop.png)
+
+*bin/setupCluster.sh start*
+
+![](img/SetupCluster_Sart.png)
+
+**bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster. If the Support engineer uses the bin/setupCluster.sh createLogAnalyzer to setup the cluster, then to distribute the customer logs, support engineer has to run the log distribute script.
+
+![](img/LogDistribute.png)
 
 **bin/kill_all.sh** - Used to kill the containers running.
 
+![](img/Kill_All.png)
 
+## Author
 
+**Nisanth Simon** - [NisanthSimon@LinkedIn]
+
+[NisanthSimon@LinkedIn]: https://au.linkedin.com/in/nisanth-simon-03b2149
+ 
 
 
 
