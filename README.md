@@ -26,6 +26,8 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 
 **bin/setupDocker.sh**  - Used to setup the Docker in a Fresh Linux Machine.
 
+![](img/setupDocker.png)
+
 **bin/setup.sh** - Used to setup the Cluster based on Customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
 
 The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
@@ -34,8 +36,17 @@ The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonwork
 ![](img/setup_2.png)
 ![](img/setup_3.png)
 
+![](img/setup_result_1.png)
+![](img/setup_result_2.png)
+![](img/setup_result_3.png)
+![](img/setup_result_4.png)
 
-**bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files
+**bin/setupCluster.sh** - Used for setup the cluster based on the nodes mentioned in configuration files. The Amabri server container will be created based on the hostname mentioned in conf/server. The Ambari agent containers will be created based on conf/agent. This script will install only the Ambari Log Search and its dependent components. If support engineer need to replicate the issue, he/she can manually do it from Ambari UI.
+
+***bin/setupCluster.sh***
+
+![](img/SetupCluster_CreateCluster1.png)
+![](img/SetupCluster_CreateCluster2.png)
 
 **bin/logDistribute.sh** - Used for distributing the customer logs to existing cluster
 
