@@ -3,7 +3,7 @@ Log Analyzer -  Analyses the customer logs for bigdata components like HDFS, Hiv
 
 ## Internal Architecture
 
-Analysing the Customer logs for understanding the issue is a time consuming process. For a bigdata issue, the support engineer need to slice and dice the logs from various components across different nodes to understand the issue. There are many paid products available that helps in analysing these logs. Here we use the the Ambari Log Search Feature to analyse the logs. The Amabri Log Search is used to analyse the logs in a cluster and it expects all the components to be installed so that it will check the issues of the installed components in that cluster. This project creates the docker containers based on the nodes provided by Customer and setup the Amabri Log Search in it and Ambari Log Search will be using the customer logs.
+Analysing the Customer logs, for understanding the issue is a time consuming process. For a bigdata issue, the support engineer need to slice and dice the logs from various components across different nodes to understand the issue. There are many paid products available that helps in analysing these logs. Here we use the the Ambari Log Search Feature to analyse the logs. The Amabri Log Search is used to analyse the logs in a cluster and it expects all the components to be installed so that it will check the issues of the installed components in that cluster. This project creates the docker containers based on the nodes/hostnames provided by Customer and setup the Amabri Log Search in it and Ambari Log Search will be using the customer logs.
 
 Consider a customer has a 20 node hadoop cluster and having issues with namenode(node1.test.com) and 2 datanode (node12.test.com, node15.test.com). The support engineer has to share the log collector script (bin/logCollector.sh) to customer. Customer run the script that will collect the logs from 3 nodes (node1.test.com, node12.test.com, node15.test.com). The customer shares the zipped artifact to support engineer. 
 
@@ -19,7 +19,7 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 
 ### Usage
 
-**1) bin/logCollector.sh** - Used by Customer to collect the logs. Customer need to provide the case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
+**1) bin/logCollector.sh** - Used by customer to collect the logs. Customer need to provide the case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
  
   
 ![](img/logCollector_1.png)
@@ -31,9 +31,9 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 ![](img/setupDocker.png)
  
  
-**3) bin/setup.sh** - Used to setup the Cluster based on Customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
+**3) bin/setup.sh** - Used to setup the cluster based on customer nodes and distribute the customer logs for log analysis. The support engineer need to provide the path for the customer logs & URL for ambari.repo file. 
 
-The path for Ambari repo is available in Hortonworks URL (ttps://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
+The path for Ambari repo is available in Hortonworks URL (https://docs.hortonworks.com/HDPDocuments/Ambari-2.6.1.5/bk_ambari-installation/content/ambari_repositories.html )
  
  
 ![](img/setup_1.png)
