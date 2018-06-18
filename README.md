@@ -40,7 +40,7 @@ The path for Ambari repo is available in Hortonworks URL (https://docs.hortonwor
 ![](img/setup_2.png)
 ![](img/setup_3.png)
   
-  
+*Log Search UI for log analysis    
   
 ![](img/setup_result_1.png)
 ![](img/setup_result_2.png)
