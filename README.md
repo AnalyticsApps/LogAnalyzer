@@ -20,7 +20,8 @@ After analysing the logs, Support Engineer will run bin/kill_all.sh that will ki
 ### Usage
 
 **bin/logCollector.sh** - Used by Customer to collect the logs. Customer need to provide the case details, issue details, date when the issue occurred, components for which logs to be collected, nodes for which logs to be collected and path where the final artifact to be generated. Based on the customer input the script will collect the logs.
-<br>
+ 
+ 
 ![](img/logCollector_1.png)
 ![](img/logCollector_2.png)
 
